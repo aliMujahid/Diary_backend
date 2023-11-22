@@ -1,10 +1,16 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 
 
 class Topic(models.Model):
     """Topics are used to organize the entries."""
     name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=50, unique=True)
+
+    def save(self, *args, **kwargs):  # new
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

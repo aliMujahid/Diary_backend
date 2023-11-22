@@ -6,7 +6,7 @@ from .models import Topic, Entry
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
     list_display = ('name',)
-    prepopulated_fields = {"slug": ["name",]}
+    exclude = ('slug',)
 
 
 @admin.register(Entry)
